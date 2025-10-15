@@ -41,6 +41,7 @@ class App extends React.Component{
     });
   };
 
+  // Handling the Arrow movements 
   handleKeyDown = (event) => {
     console.log('You pressed the key:', event.key);
 
@@ -78,7 +79,8 @@ class App extends React.Component{
       }
     }
   };
-
+  
+  //Adding tiles whenever empty spaces is there
   addRandomTile = (board) => {
     let emptyCells = [];
     for (let r = 0; r < board.length; r++) {
@@ -96,6 +98,8 @@ class App extends React.Component{
     return board;
   };
   
+  //Checking the Game result.
+
   hasWon = (board) => {
     for (let r = 0; r < board.length; r++) {
       for (let c = 0; c < board[r].length; c++) {
@@ -129,12 +133,16 @@ class App extends React.Component{
     return true;
   };
 
+  //Fixed Logic for All Directions
+
   moveLeft = (board) => {
     let newBoard = this.slide(board);
     const { board: mergedBoard, score } = this.merge(newBoard, 'left');
     newBoard = this.slide(mergedBoard);
     return { board: newBoard, score };
   };
+
+  //Sliding Left
 
   slide = (board) => {
     let newBoard = board.map(row => row.filter(cell => cell !== 0));
@@ -145,6 +153,8 @@ class App extends React.Component{
     }
     return newBoard;
   };
+
+  //Merging the slided Tiles
 
   merge = (board, direction) => {
     let newBoard = JSON.parse(JSON.stringify(board)); // Create a deep copy
@@ -164,6 +174,8 @@ class App extends React.Component{
     return { board: newBoard, score: newScore };
   };
 
+  //Rotating board by 90 degrees 
+
   rotateBoard = (board) => {
     const newBoard = Array(4).fill(0).map(() => Array(4).fill(0));
     for (let r = 0; r < 4; r++) {
@@ -174,20 +186,23 @@ class App extends React.Component{
     return newBoard;
   };
   
+  // 3 Rotations to move board from top to left 
   moveUp = (board) => {
     const rotatedBoard = this.rotateBoard(this.rotateBoard(this.rotateBoard(board)));
     const { board: slidBoard, score } = this.moveLeft(rotatedBoard);
-    const finalBoard = this.rotateBoard(slidBoard);
+    const finalBoard = this.rotateBoard(slidBoard); // Again rotate to Get Original Board
     return { board: finalBoard, score };
   };
 
+  // 1 Rotation to move board from bottom to left
   moveDown = (board) => {
     const rotatedBoard = this.rotateBoard(board);
     const { board: slidBoard, score } = this.moveLeft(rotatedBoard);
     const finalBoard = this.rotateBoard(this.rotateBoard(this.rotateBoard(slidBoard)));
     return { board: finalBoard, score };
   };
-
+ 
+  // 2 Rotations to move from right to left
   moveRight = (board) => {
     const rotatedBoard = this.rotateBoard(this.rotateBoard(board));
     const { board: slidBoard, score } = this.moveLeft(rotatedBoard);
@@ -210,7 +225,7 @@ class App extends React.Component{
               {row.map((cell, cellIndex) => (
                 <div
                   key={cellIndex}
-                  className={`tile ${cell !== 0 ? 'tile-' + cell : ''}`}
+                  className={`tile ${cell !== 0 ? 'tile-' + cell : ''}`} // Dynamic Class Name for all tiles
                 >
                   {cell !== 0 ? cell : ''}
                 </div>

@@ -131,23 +131,22 @@ html, body, #root {
   h1 {
     font-size: 1.5em;
   }
+  .game-info {
+    width: 90%;
+    margin-bottom: 5px;
+  }
   .game-info p {
     font-size: 1.2em;
   }
-  .game-info {
-    width: 90%;
-    max-width: 320px; 
-    margin-bottom: 5px;
-  }
-  .tile {
-    width: 112px;
-    height: 112px;
-    font-size: 1.5em; 
-    margin: 3px; 
-  }
   .board {
     padding: 5px;
-    width: 480px;
-    height: 484px; 
+    width: 90%;
+    height: auto; 
+  }
+  .tile {
+    width: 21vw;
+    height: 21vw;
+    font-size: 1.5em;
+    margin: 3px;
   }
 }

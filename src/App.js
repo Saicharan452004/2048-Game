@@ -16,6 +16,7 @@ class App extends React.Component{
       gameWon: false,
       message: 'Keep playing!',
     };
+    this.boardRef = React.createRef();
   }
   componentDidMount() {
     let initialBoard = this.state.board;
@@ -23,14 +24,18 @@ class App extends React.Component{
     initialBoard = this.addRandomTile(initialBoard);
     this.setState({ board: initialBoard });
     window.addEventListener('keydown', this.handleKeyDown);
-    window.addEventListener('touchstart', this.handleTouchStart, false);
-    window.addEventListener('touchend', this.handleTouchEnd, false);
+    if (this.boardRef.current) {
+      this.boardRef.current.addEventListener('touchstart', this.handleTouchStart, false);
+      this.boardRef.current.addEventListener('touchend', this.handleTouchEnd, false);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('touchstart', this.handleTouchStart);
-    window.removeEventListener('touchend', this.handleTouchEnd);
+    if (this.boardRef.current) {
+      this.boardRef.current.removeEventListener('touchstart', this.handleTouchStart);
+      this.boardRef.current.removeEventListener('touchend', this.handleTouchEnd);
+    }
   }
 
   restartGame = () => {
@@ -269,7 +274,7 @@ class App extends React.Component{
           <p>Score: {this.state.score}</p>
           <button onClick={this.restartGame} className="restart-button">Restart Game</button>
         </div>
-        <div className="board">
+        <div className="board" ref={this.boardRef}>
           {this.state.board.map((row, rowIndex) => (
             <div key={rowIndex} className="board-row">
               {row.map((cell, cellIndex) => (

@@ -1,3 +1,7 @@
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
 .game-info {
   display: flex;
   justify-content: space-between;
@@ -136,13 +140,14 @@
     margin-bottom: 5px;
   }
   .tile {
-    width: 65px;
-    height: 65px;
+    width: 88px;
+    height: 88px;
     font-size: 1.5em; 
     margin: 3px; 
   }
   .board {
     padding: 5px;
-    width: 280px; 
+    width: 380px;
+    height: 384px; 
   }
 }

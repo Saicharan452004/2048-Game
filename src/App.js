@@ -23,10 +23,14 @@ class App extends React.Component{
     initialBoard = this.addRandomTile(initialBoard);
     this.setState({ board: initialBoard });
     window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('touchstart', this.handleTouchStart, false);
+    window.addEventListener('touchend', this.handleTouchEnd, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('touchstart', this.handleTouchStart);
+    window.removeEventListener('touchend', this.handleTouchEnd);
   }
 
   restartGame = () => {
@@ -41,16 +45,55 @@ class App extends React.Component{
     });
   };
 
-  // Handling the Arrow movements 
-  handleKeyDown = (event) => {
-    console.log('You pressed the key:', event.key);
+  //GUI for Mobile 
+  xDown = null;
+  yDown = null;
 
+  handleTouchStart = (event) => {
+    const firstTouch = event.touches[0];
+    this.xDown = firstTouch.clientX;
+    this.yDown = firstTouch.clientY;
+  };
+
+  handleTouchEnd = (event) => {
+    if (!this.xDown || !this.yDown) {
+      return;
+    }
+
+    const xUp = event.changedTouches[0].clientX;
+    const yUp = event.changedTouches[0].clientY;
+
+    const xDiff = this.xDown - xUp;
+    const yDiff = this.yDown - yUp;
+
+    // Check if it's a horizontal or vertical swipe
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      if (xDiff > 0) {
+        this.handleMove('ArrowLeft');
+      } else {
+        this.handleMove('ArrowRight');
+      }
+    } else {
+      if (yDiff > 0) {
+        this.handleMove('ArrowUp');
+      } else {
+        this.handleMove('ArrowDown');
+      }
+    }
+
+    // Reset coordinates
+    this.xDown = null;
+    this.yDown = null;
+  };
+  
+
+  handleMove = (direction) => {
     if (this.state.gameOver || this.state.gameWon) {
-      return; 
+      return;
     }
 
     let result = null;
-    switch (event.key) {
+    switch (direction) {
       case 'ArrowLeft':
         result = this.moveLeft(this.state.board);
         break;
@@ -66,6 +109,7 @@ class App extends React.Component{
       default:
         return;
     }
+
     if (result && JSON.stringify(result.board) !== JSON.stringify(this.state.board)) {
       const newBoardWithTile = this.addRandomTile(result.board);
       this.setState(prevState => ({
@@ -79,6 +123,12 @@ class App extends React.Component{
       }
     }
   };
+
+  
+  handleKeyDown = (event) => {
+    this.handleMove(event.key);
+  };
+  
   
   //Adding tiles whenever empty spaces is there
   addRandomTile = (board) => {

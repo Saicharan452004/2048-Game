@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+2048 Game
+A modern, responsive implementation of the classic 2048 puzzle game, built with React using class components.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ Gameplay
+Objective: Combine tiles with the same number to reach the 2048 tile.
 
-## Available Scripts
+Controls: Use the arrow keys on your keyboard to slide tiles up, down, left, or right. On mobile devices, swipe in the direction you want to move.
 
-In the project directory, you can run:
+Mechanics:
 
-### `npm start`
+When two tiles with the same number touch, they merge into one tile with the sum of their values.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+After each move, a new tile (either a 2 or a 4) appears in a random empty spot.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Game Over: The game ends when the board is full and no more moves are possible, or when you successfully reach 2048.
 
-### `npm test`
+Implementation Details:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was built following the functional programming principles outlined in the problem statement. The core game logic is separated from the UI, and state is handled immutably to ensure a predictable and clean codebase.
 
-### `npm run build`
+Board Representation: The game board is represented as a 2D array in the component's state.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+State Management: The game state is managed using a single class component, App, which holds the board, score, and game status.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Immutability: All move functions (moveLeft, moveRight, moveUp, moveDown) return a new board and score rather than directly mutating the state. This is a core functional programming principle that ensures a clean state history.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Event Handling: The game uses both keydown and touchstart/touchend event listeners to handle input from both keyboards and touchscreens.
 
-### `npm run eject`
+Responsiveness: CSS media queries are used to adjust the board and tile sizes for a seamless experience on mobile devices.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Play the Game
+Live Demo: https://2048-game-peach-three.vercel.app/
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Simply click the link above to play the game in your browser on any device!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+⚙️ Installation and Running
+For a detailed look at the source code and implementation, follow these steps to run the game locally.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Clone the Repository:
 
-## Learn More
+Bash
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+git clone https://github.com/Saicharan452004/2048-Game.git
+cd 2048-Game
+Install Dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Bash
 
-### Code Splitting
+npm install
+Run the Game:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Bash
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm start
+The game will open in your default web browser at http://localhost:3000.

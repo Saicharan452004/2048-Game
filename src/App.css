@@ -140,14 +140,14 @@ html, body, #root {
     margin-bottom: 5px;
   }
   .tile {
-    width: 88px;
-    height: 88px;
+    width: 112px;
+    height: 112px;
     font-size: 1.5em; 
     margin: 3px; 
   }
   .board {
     padding: 5px;
-    width: 380px;
-    height: 384px; 
+    width: 480px;
+    height: 484px; 
   }
 }
